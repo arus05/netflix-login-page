@@ -2,9 +2,12 @@ require("dotenv").config()
 const mongoose = require("mongoose")
 const express = require("express")
 
+const userRouter = require("./routers/userRouter.js")
+
 // create server
 const app = express()
 app.use(express.json())
+app.use("/api/user", userRouter)
 
 // connect to database and listen to port
 async function connectDB(){
@@ -21,8 +24,8 @@ async function connectDB(){
 connectDB()
   .then(() => {
     console.log("connected to database...")
-    app.listen(process.env.PORT_NUMBER, () => {
-      console.log("Listening on port " + process.env.PORT_NUMBER)
+    app.listen(process.env.PORT, () => {
+      console.log("Listening on port " + process.env.PORT)
     })
   })
   .catch((err) => {
